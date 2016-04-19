@@ -4,8 +4,12 @@ import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 
@@ -25,9 +29,25 @@ public class GUI extends Application{
 		root.getChildren().add(bpane);
 		
 		//Create a new hbox and put it in the top part of the borderpane
-		HBox hbox = new HBox();
-		hbox.setSpacing(10);
-		bpane.setTop(hbox);
+		HBox hboxTop = new HBox();
+		hboxTop.setSpacing(10);
+		bpane.setTop(hboxTop);
+		
+		//Create a new scrollpane and put it in the center of the borderpane
+		//also, set the size of the scrollpane. we may need to change this in the future
+		ScrollPane scrollpane = new ScrollPane();
+		scrollpane.vbarPolicyProperty().set(ScrollBarPolicy.ALWAYS);
+		scrollpane.hbarPolicyProperty().set(ScrollBarPolicy.AS_NEEDED);
+		scrollpane.setMinHeight(800);
+		scrollpane.setMaxHeight(800);
+		scrollpane.setMinWidth(1200);
+		scrollpane.setMaxWidth(1200);
+		scrollpane.setFitToHeight(true);
+		bpane.setCenter(scrollpane);
+		
+		//Create a new vbox and put it in the scrollpane
+		VBox vboxCenter = new VBox();
+		scrollpane.setContent(vboxCenter);
 		
 		//Create 5 buttons
 		Button q1 = new Button("Query 1");
@@ -36,16 +56,19 @@ public class GUI extends Application{
 		Button q4 = new Button("Query 4");
 		Button q5 = new Button("Query 5");
 		
-		//add the buttons to the hbox
-		hbox.getChildren().addAll(q1, q2, q3, q4, q5);
+		//add the buttons to the top hbox
+		hboxTop.getChildren().addAll(q1, q2, q3, q4, q5);
 		
 		//Set the event listeners on the buttons
 		/*For for these events, a query should be made, and the results should be put into the center of the borderpane*/
 		q1.setOnAction(new EventHandler<ActionEvent>(){
 			@Override
 			public void handle(ActionEvent arg0) {
-				// TODO Auto-generated method stub
+				Text t1 = new Text("This \n\nis \n\na \n\n\ntest");
+				Text t2 = new Text("This \nis \nalso \na \n\n\n\ntest");
 				
+				vboxCenter.getChildren().addAll(t1, t2);
+				System.out.println(scrollpane.isFitToHeight());
 			}
 		});
 		q2.setOnAction(new EventHandler<ActionEvent>(){
