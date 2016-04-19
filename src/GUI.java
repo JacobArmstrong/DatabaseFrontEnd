@@ -64,11 +64,15 @@ public class GUI extends Application{
 		q1.setOnAction(new EventHandler<ActionEvent>(){
 			@Override
 			public void handle(ActionEvent arg0) {
+				//clear out the center vbox
+				vboxCenter.getChildren().clear();
+				
+				//Create new data
 				Text t1 = new Text("This \n\nis \n\na \n\n\ntest");
 				Text t2 = new Text("This \nis \nalso \na \n\n\n\ntest");
 				
+				//Add new data to the recently cleared vbox
 				vboxCenter.getChildren().addAll(t1, t2);
-				System.out.println(scrollpane.isFitToHeight());
 			}
 		});
 		q2.setOnAction(new EventHandler<ActionEvent>(){
